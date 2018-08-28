@@ -52,9 +52,9 @@ class CryptoCouponNew extends Component {
             />
             <label>Address</label>
             <Input
-              value={this.state.description}
+              value={this.state.address}
               onChange={event =>
-                this.setState({ description: event.target.value })}
+                this.setState({ address: event.target.value })}
             />
             
 

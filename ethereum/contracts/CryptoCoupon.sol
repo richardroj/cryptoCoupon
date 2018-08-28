@@ -379,5 +379,20 @@ contract CryptoCoupon is AccessControl, DetailedERC721 {
         return playerWinner;
    }
    
+   function getSummary() public view returns (
+      string, uint, uint, address
+      ) {
+        return (
+          name,
+          address(this).balance,
+          coupons.length,
+          owner
+        );
+    }
+
+    function getCouponsCount() public view returns (uint) {
+        return coupons.length;
+    }
+   
 
 }
