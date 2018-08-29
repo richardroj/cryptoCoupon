@@ -16,9 +16,15 @@ class CouponNew extends Component {
     loading: false
   };
 
+  static async getInitialProps(props) {
+    const { address } = props.query;
+
+    return { address };
+  }
+
   onSubmit = async event => {
     event.preventDefault();
-
+    console.log("creating contract: "+ this.props.address);
     const cryptoCoupon = CryptoCoupon(this.props.address);
     const { name, description, gift, value } = this.state;
 
@@ -33,8 +39,7 @@ class CouponNew extends Component {
         });
       await cryptoCoupon.methods
         .createToken(this.state.name, this.state.description, this.state.gift, this.state.value)
-        .send({ from: accounts[0],
-          gas: '1000000' });
+        .send({ from: accounts[0], gas: '1000000'});
 
       Router.pushRoute(`/cryptoCoupons/${this.props.address}/coupons`);
     } catch (err) {
@@ -42,28 +47,7 @@ class CouponNew extends Component {
     }
 
     this.setState({ loading: false });
-    /*this.setState({ loading: true, errorMessage: '' });
-
-    try {
-      const accounts = await web3.eth.getAccounts();
-      await factory.methods
-        .AccessControle()
-        .send({
-          from: accounts[0]
-        });
-      await factory.methods
-        .createToken(this.state.name, this.state.description, this.state.gift, this.state.value)
-        .send({
-          from: accounts[0],
-          gas: '1000000'
-        });
-
-      Router.pushRoute('/');
-    } catch (err) {
-      this.setState({ errorMessage: err.message });
-    }
-
-    this.setState({ loading: false });*/
+    
   };
 
   render() {

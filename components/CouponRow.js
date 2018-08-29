@@ -30,28 +30,28 @@ class CouponRow extends Component {
     return (
       <Row
         disabled={coupon.gift}
-        positive={readyToFinalize && !coupon.gift}
+        
       >
         <Cell>{id}</Cell>
         <Cell>{coupon.name}</Cell>
-        <Cell>{web3.utils.fromWei(coupon.value, 'ether')}</Cell>
         <Cell>{coupon.description}</Cell>
         <Cell>
           {coupon.serialNumber}
         </Cell>
+        <Cell>{web3.utils.fromWei(coupon.value, 'ether')}</Cell>
         <Cell>
-          {request.complete ? null : (
-            <Button color="green" basic onClick={this.onApprove}>
+          {coupon.gift ? (
+            <Button color="green" basic>
               Approve
             </Button>
-          )}
+          ): null}
         </Cell>
         <Cell>
-          {request.complete ? null : (
-            <Button color="teal" basic onClick={this.onFinalize}>
-              Finalize
+          {coupon.gift ? (
+            <Button color="teal" basic >
+              Burn
             </Button>
-          )}
+          ) : null}
         </Cell>
       </Row>
     );

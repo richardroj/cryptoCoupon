@@ -57,6 +57,7 @@ class CouponIndex extends Component {
               <HeaderCell>Name</HeaderCell>
               <HeaderCell>Description</HeaderCell>
               <HeaderCell>Serial Number</HeaderCell>
+              <HeaderCell>Value</HeaderCell>
               <HeaderCell>Approve</HeaderCell>
               <HeaderCell>Finalize</HeaderCell>
             </Row>
