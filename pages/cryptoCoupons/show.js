@@ -8,17 +8,16 @@ import { Link } from '../../routes';
 
 class CryptoCouponShow extends Component {
   static async getInitialProps(props) {
-    const campaign = Campaign(props.query.address);
+    const cryptoCoupon = CryptoCoupon(props.query.address);
 
-    const summary = await campaign.methods.getSummary().call();
+    const summary = await cryptoCoupon.methods.getSummary().call();
 
     return {
       address: props.query.address,
-      minimumContribution: summary[0],
+      name: summary[0],
       balance: summary[1],
-      requestsCount: summary[2],
-      approversCount: summary[3],
-      manager: summary[4]
+      couponsCount: summary[2],
+      manager: summary[3]
     };
   }
 
@@ -26,9 +25,8 @@ class CryptoCouponShow extends Component {
     const {
       balance,
       manager,
-      minimumContribution,
-      requestsCount,
-      approversCount
+      name,
+      couponsCount,
     } = this.props;
 
     const items = [
@@ -36,32 +34,26 @@ class CryptoCouponShow extends Component {
         header: manager,
         meta: 'Address of Manager',
         description:
-          'The manager created this campaign and can create requests to withdraw money',
+          'The manager created this coupon',
         style: { overflowWrap: 'break-word' }
       },
       {
-        header: minimumContribution,
-        meta: 'Minimum Contribution (wei)',
+        header: name,
+        meta: 'Company Name',
         description:
-          'You must contribute at least this much wei to become an approver'
+          'Company'
       },
       {
-        header: requestsCount,
-        meta: 'Number of Requests',
+        header: couponsCount,
+        meta: 'Number of Coupons',
         description:
-          'A request tries to withdraw money from the contract. Requests must be approved by approvers'
-      },
-      {
-        header: approversCount,
-        meta: 'Number of Approvers',
-        description:
-          'Number of people who have already donated to this campaign'
+          'Coupons'
       },
       {
         header: web3.utils.fromWei(balance, 'ether'),
-        meta: 'Campaign Balance (ether)',
+        meta: 'Company Balance (ether)',
         description:
-          'The balance is how much money this campaign has left to spend.'
+          'The balance is how much money this coupon has left to spend.'
       }
     ];
 
@@ -71,21 +63,21 @@ class CryptoCouponShow extends Component {
   render() {
     return (
       <Layout>
-        <h3>Campaign Show</h3>
+        <h3>Coupon Show</h3>
         <Grid>
           <Grid.Row>
             <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
 
             <Grid.Column width={6}>
-              <ContributeForm address={this.props.address} />
+              
             </Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
             <Grid.Column>
-              <Link route={`/campaigns/${this.props.address}/requests`}>
+              <Link route={`/cryptoCoupons/${this.props.address}/coupons`}>
                 <a>
-                  <Button primary>View Requests</Button>
+                  <Button primary>View Coupons</Button>
                 </a>
               </Link>
             </Grid.Column>
@@ -96,4 +88,5 @@ class CryptoCouponShow extends Component {
   }
 }
 
-export default CampaignShow;
+export default CryptoCouponShow;
+//<!--<ContributeForm address={this.props.address} />-->
